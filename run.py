@@ -1,14 +1,14 @@
 from flask import Flask
-from backend.routes import api
+from backend.routes import api  # Imports the Blueprint from your api.py file
 
-# --- CREATE APP GLOBALLY ---
-# Gunicorn needs this 'app' variable to be accessible at the top level
+# Initialize the Flask Application
 app = Flask(__name__)
 
-# Register the routes from backend/routes.py
+# Register the routes from api.py
 app.register_blueprint(api)
 
-if __name__ == '__main__':
-    # This block only runs on your laptop
-    print("🚀 Starting NeuroStream v2...")
-    app.run(debug=True, port=5000)
+if __name__ == "__main__":
+    print("--- STARTING NEUROSTREAM ---")
+    # Host '0.0.0.0' makes it accessible within Docker (Required for Hugging Face)
+    # Port 7860 is the specific port Hugging Face Spaces open by default
+    app.run(host='0.0.0.0', port=7860)
