@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroStream v2 | Neural Interface</title>
+    
+    <!-- Cinematic Styles -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+    <!-- Font: Outfit (Modern, Geometric) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+
+    <!-- AMBIENT BACKGROUND SYSTEM -->
+    <div class="ambient-light"></div>
+    <div class="scanlines"></div>
+
+    <nav class="navbar">
+        <div class="logo">NEURO<span id="logoSuffix">STREAM</span></div>
+        <div class="nav-controls">
+            <!-- Context Switcher -->
+            <div class="context-switch">
+                <button id="ctxMovies" class="active" onclick="switchContext('movies')">Movies</button>
+                <button id="ctxGames" onclick="switchContext('games')">Games</button>
+            </div>
+
+            <div class="toggle-switch" id="viewToggle">
+                <button id="btnGrid" class="active" onclick="switchView('grid')">Grid</button>
+                <button id="btnReel" onclick="switchView('reel')">Reels</button>
+            </div>
+            
+            <!-- Filter Removed -->
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1 id="heroTitle">Find your next obsession.</h1>
+        <div class="search-bar-wrapper">
+            <input type="text" id="moodInput" placeholder="Describe the vibe..." onkeypress="handleEnter(event)">
+            <button class="search-btn" onclick="triggerSearch()">Search</button>
+        </div>
+        <div class="tags" id="quickTags"></div>
+    </div>
+
+    <main id="contentArea">
+        <div id="loader" style="display: none; text-align: center; padding: 40px; color: #e50914;">
+            <div class="spinner"></div>
+            <span style="font-size: 14px; letter-spacing: 2px; text-transform: uppercase;">Scanning Neural Network...</span>
+        </div>
+        
+        <div id="gridView" class="grid-container"></div>
+        <div id="reelView" class="reel-container" style="display: none;"></div>
+    </main>
+
+    <!-- CINEMATIC DETAIL MODAL -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <div id="modalHero" class="modal-hero">
+                <div class="hero-gradient"></div>
+                <div class="hero-text">
+                    <h2 id="modalTitle">Loading...</h2>
+                    <p id="modalTagline" class="tagline"></p>
+                    <div class="hero-meta">
+                        <span id="modalYear" class="badge-meta">----</span>
+                        <span id="modalRating" class="badge-rating">--</span>
+                        <span id="modalRuntime" class="badge-meta">--</span>
+                        <span id="modalStatus" class="badge-meta">Released</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body-scroll">
+                <div class="flex-row">
+                    <div id="modalGenres" class="genre-list"></div>
+                    <div class="modal-actions" id="modalActions">
+                        <button onclick="searchTrailerFromModal()" class="action-btn primary">▶ Trailer</button>
+                        <a id="modalLink" href="#" target="_blank" class="action-btn secondary" style="display:none;">Stream</a>
+                    </div>
+                </div>
+
+                <p id="modalDesc" class="modal-desc">Loading details...</p>
+
+                <!-- Dynamic Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <label id="lblStat1">Data</label>
+                        <span id="valStat1">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <label id="lblStat2">Data</label>
+                        <span id="valStat2">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <label id="lblStat3">Data</label>
+                        <span id="valStat3">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <label id="lblStat4">Data</label>
+                        <span id="valStat4">--</span>
+                    </div>
+                </div>
+
+                <!-- Dynamic Credits -->
+                <div class="crew-section" id="crewSection">
+                    <div class="info-group">
+                        <h4 id="lblCredit1">Director</h4>
+                        <div id="valCredit1" class="pill-container"></div>
+                    </div>
+                    <div class="info-group">
+                        <h4 id="lblCredit2">Music</h4>
+                        <div id="valCredit2" class="pill-container"></div>
+                    </div>
+                </div>
+
+                <div class="info-group" id="castSection">
+                    <h4 id="lblCast">Top Cast</h4>
+                    <p id="modalCast" style="color: #ccc; line-height: 1.5;"></p>
+                </div>
+                
+                <div class="info-group" id="providersSection">
+                    <h4>Streaming On</h4>
+                    <ul id="modalProviders" class="provider-list"></ul>
+                </div>
+
+                <div id="modalCollectionBox" class="collection-box" style="display:none;">
+                    <span>Part of</span>
+                    <strong id="modalCollectionName"></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
